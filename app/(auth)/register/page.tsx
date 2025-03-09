@@ -1,11 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { UseFormInput } from "@/components/UseFormField";
 import { auth } from "@/lib/firebase";
-import { schema, FormData } from "@/lib/model/schema-register";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -14,6 +19,20 @@ import {
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+export const schema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6),
+  })
+  .refine((val) => val.password === val.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type FormData = z.infer<typeof schema>;
 
 export default function RegisterPage() {
   const [createUserWithEmailAndPassword] =
@@ -57,6 +76,9 @@ export default function RegisterPage() {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-xl">Create an account</CardTitle>
+              <CardDescription>
+                Register with your Google account
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6">
@@ -101,6 +123,7 @@ export default function RegisterPage() {
                           name="password"
                           label="Password"
                           type="password"
+                          placeholder="Enter your password"
                         />
                       </div>
 
@@ -110,6 +133,7 @@ export default function RegisterPage() {
                           name="confirmPassword"
                           label="Confirm Password"
                           type="password"
+                          placeholder="Confirm your password"
                         />
                       </div>
                       <Button type="submit" className="w-full">
@@ -130,10 +154,6 @@ export default function RegisterPage() {
               </div>
             </CardContent>
           </Card>
-          <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-            By clicking continue, you agree to our{" "}
-            <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-          </div>
         </div>
       </div>
     </div>

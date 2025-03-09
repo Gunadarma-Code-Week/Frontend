@@ -11,7 +11,6 @@ import {
 import { Form } from "@/components/ui/form";
 import { UseFormInput } from "@/components/UseFormField";
 import { auth } from "@/lib/firebase";
-import { schema, FormData } from "@/lib/model/schema-login";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -20,6 +19,15 @@ import {
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+
+import { z } from "zod";
+
+export const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+export type FormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
@@ -96,7 +104,7 @@ export default function LoginPage() {
                           type="password"
                         />
                         <Link
-                          href="#"
+                          href="new-password"
                           className="ml-auto text-sm underline-offset-4 hover:underline"
                         >
                           Forgot your password?
@@ -120,10 +128,6 @@ export default function LoginPage() {
               </div>
             </CardContent>
           </Card>
-          <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-            By clicking continue, you agree to our{" "}
-            <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-          </div>
         </div>
       </div>
     </div>
