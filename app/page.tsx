@@ -60,6 +60,36 @@ export default function Home() {
           </div>
         </div>
       </nav>
+      <main className="max-w-screen-xl mx-auto mt-[68px] px-4">
+        <section id="hero" className="relative flex flex-col md:flex-row gap-10 mt-24 md:mt-32 w-full">
+          <div className="relative ml-auto">
+            <Image
+              src="/assets/illustration/hero.png"
+              alt="Hero Illustration"
+              width={640}
+              height={533}
+            />
+
+            {/* Add glassmorphism effect */}
+            <div className="absolute bottom-0 left-1 py-5 text-center w-full rounded-2xl bg-[#EFEEEE0D] backdrop-blur-lg">
+              <span className="text-white md:text-2xl font-bold">
+                Seminar • Hackathon • CP
+              </span>
+            </div>
+          </div>
+
+          <div className="md:absolute md:left-0 flex flex-col justify-center h-full md:w-[626px]">
+            <h1 className="text-4xl md:text-8xl font-bold md:leading-[90px]">Gunadarma <br />Code Week</h1>
+
+            <p className="mt-2 md:text-2xl">Lorem ipsum dolor sit amet consectetur. In lectus odio facilisis venenatis cras..Lorem ipsum dolor sit amet consectetur. </p>
+
+            <div className="flex mt-4 gap-4">
+              <Button variant="outline" size="lg">Daftar Sekarang</Button>
+              <Button size="lg">Lihat Guidebook</Button>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   );
 }
