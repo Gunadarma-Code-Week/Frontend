@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { analytics } from "@/lib/firebase";
 import { logEvent } from "firebase/analytics";
-import { Menu } from "lucide-react";
+import { BookOpen, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -38,22 +38,22 @@ export default function Home() {
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Button variant="link" asChild>
-                  <Link href="/">Home</Link>
+                  <Link href="/">Beranda</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild>
-                  <Link href="/">About</Link>
+                  <Link href="/">Tentang</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild>
-                  <Link href="/">Newsletter</Link>
+                  <Link href="/">Buletin</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild>
-                  <Link href="/">Contact</Link>
+                  <Link href="/">Kontak</Link>
                 </Button>
               </li>
             </ul>
@@ -81,11 +81,11 @@ export default function Home() {
           <div className="md:absolute md:left-0 flex flex-col justify-center h-full md:w-[626px]">
             <h1 className="text-4xl md:text-8xl font-bold md:leading-[90px]">Gunadarma <br />Code Week</h1>
 
-            <p className="mt-2 md:text-2xl">Lorem ipsum dolor sit amet consectetur. In lectus odio facilisis venenatis cras..Lorem ipsum dolor sit amet consectetur. </p>
+            <p className="mt-2 md:text-2xl">GCW menghadirkan seminar, hackathon, dan kompetisi pemrograman. Daftar sekarang untuk mengasah skill & berprestasi!</p>
 
             <div className="flex mt-4 gap-4">
               <Button variant="outline" size="lg">Daftar Sekarang</Button>
-              <Button size="lg">Lihat Guidebook</Button>
+              <Button size="lg"> <BookOpen /> Lihat Guidebook</Button>
             </div>
           </div>
         </section>
