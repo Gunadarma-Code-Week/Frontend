@@ -25,7 +25,9 @@ export default function Home() {
             />
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <Button className="w-24">Masuk</Button>
+            <Link href={"/auth/login"}>
+              <Button className="w-24">Masuk</Button>
+            </Link>
             <Button variant="outline" size="icon" className="md:hidden">
               <span className="sr-only">Open main menu</span>
               <Menu />
@@ -61,7 +63,10 @@ export default function Home() {
         </div>
       </nav>
       <main className="max-w-screen-xl mx-auto mt-[68px] px-4">
-        <section id="hero" className="relative flex flex-col md:flex-row gap-10 mt-24 md:mt-32 w-full">
+        <section
+          id="hero"
+          className="relative flex flex-col md:flex-row gap-10 mt-24 md:mt-32 w-full"
+        >
           <div className="relative ml-auto">
             <Image
               src="/assets/illustration/hero.png"
@@ -79,13 +84,24 @@ export default function Home() {
           </div>
 
           <div className="md:absolute md:left-0 flex flex-col justify-center h-full md:w-[626px]">
-            <h1 className="text-4xl md:text-8xl font-bold md:leading-[90px]">Gunadarma <br />Code Week</h1>
+            <h1 className="text-4xl md:text-8xl font-bold md:leading-[90px]">
+              Gunadarma <br />
+              Code Week
+            </h1>
 
-            <p className="mt-2 md:text-2xl">GCW menghadirkan seminar, hackathon, dan kompetisi pemrograman. Daftar sekarang untuk mengasah skill & berprestasi!</p>
+            <p className="mt-2 md:text-2xl">
+              GCW menghadirkan seminar, hackathon, dan kompetisi pemrograman.
+              Daftar sekarang untuk mengasah skill & berprestasi!
+            </p>
 
             <div className="flex mt-4 gap-4">
-              <Button variant="outline" size="lg">Daftar Sekarang</Button>
-              <Button size="lg"> <BookOpen /> Lihat Guidebook</Button>
+              <Button variant="outline" size="lg">
+                Daftar Sekarang
+              </Button>
+              <Button size="lg">
+                {" "}
+                <BookOpen /> Lihat Guidebook
+              </Button>
             </div>
           </div>
         </section>

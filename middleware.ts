@@ -6,12 +6,18 @@ export async function middleware(request: NextRequestWithAuth) {
   const session = await getToken({ req: request });
 
   const isAuthPath = request.nextUrl.pathname.startsWith("/auth");
-  if (session && isAuthPath) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  const isHomePath = request.nextUrl.pathname.startsWith("/");
+
+  if (isHomePath) {
+    return NextResponse.next();
   }
 
   if (!session && !isAuthPath) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  if (session && isAuthPath) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
