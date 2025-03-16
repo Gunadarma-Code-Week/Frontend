@@ -114,7 +114,6 @@ export default function LoginPage() {
                           form={form}
                           name="phone"
                           label="Nomor Handphone"
-                          defaultCountry="Indonesia"
                         />
                       </div>
                     </div>

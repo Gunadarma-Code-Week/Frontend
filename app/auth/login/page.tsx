@@ -13,59 +13,63 @@ import { UseFormInput } from "@/components/UseFormField";
 import { auth } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
-  useCreateUserWithEmailAndPassword,
+  // useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+
 import { z } from "zod";
 
-export const schema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
-  })
-  .refine((val) => val.password === val.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+export const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
 export type FormData = z.infer<typeof schema>;
 
-export default function RegisterPage() {
-  const [createUserWithEmailAndPassword] =
-    useCreateUserWithEmailAndPassword(auth);
-  const [signInWithGoogle] = useSignInWithGoogle(auth);
+export default function LoginPage() {
+  // const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+  const [signWithGoogle] = useSignInWithGoogle(auth);
+  const router = useRouter();
 
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      const res = await createUserWithEmailAndPassword(
-        data.email,
-        data.password
-      );
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
+  const handleSignInWithGoogle = async () => {
+    const res = await signWithGoogle();
+
+    console.log(res);
   };
 
-  const handleSignInWithGoogle = async () => {
+  const onSubmit = async (data: FormData) => {
     try {
-      const res = await signInWithGoogle();
-      console.log(res);
+      // const resGoogle = await signInWithEmailAndPassword(
+      //   data.email,
+      //   data.password
+      // );
+
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (res?.error) {
+        console.error("Sign-in error:", res);
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
-      console.error(err);
+      console.error("wrong username / password :", err);
     }
   };
 
@@ -75,16 +79,14 @@ export default function RegisterPage() {
         <div className={cn("flex flex-col gap-6")}>
           <Card>
             <CardHeader className="text-center">
-              <CardTitle className="text-xl">Create an account</CardTitle>
-              <CardDescription>
-                Register with your Google account
-              </CardDescription>
+              <CardTitle className="text-xl">Welcome back</CardTitle>
+              <CardDescription>Login with your Google account</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
                   <Button
-                    onClick={handleSignInWithGoogle}
+                    onClick={() => handleSignInWithGoogle()}
                     variant="outline"
                     className="w-full"
                   >
@@ -94,7 +96,7 @@ export default function RegisterPage() {
                         fill="currentColor"
                       />
                     </svg>
-                    Register with Google
+                    Login with Google
                   </Button>
                 </div>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
@@ -123,32 +125,27 @@ export default function RegisterPage() {
                           name="password"
                           label="Password"
                           type="password"
-                          placeholder="Enter your password"
                         />
-                      </div>
-
-                      <div className="grid gap-2">
-                        <UseFormInput
-                          form={form}
-                          name="confirmPassword"
-                          label="Confirm Password"
-                          type="password"
-                          placeholder="Confirm your password"
-                        />
+                        <Link
+                          href="new-password"
+                          className="ml-auto text-sm underline-offset-4 hover:underline"
+                        >
+                          Forgot your password?
+                        </Link>
                       </div>
                       <Button type="submit" className="w-full">
-                        Register
+                        Login
                       </Button>
                     </form>
                   </Form>
                 </div>
                 <div className="text-center text-sm">
-                  Have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link
-                    href={"/login"}
+                    href={"/register"}
                     className="underline underline-offset-4"
                   >
-                    Log In
+                    Sign up
                   </Link>
                 </div>
               </div>
