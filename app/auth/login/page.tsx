@@ -10,16 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { UseFormInput } from "@/components/UseFormField";
-import { auth } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import {
-  // useSignInWithEmailAndPassword,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 
 import { z } from "zod";
@@ -32,10 +26,6 @@ export const schema = z.object({
 export type FormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
-  // const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
-  const [signWithGoogle] = useSignInWithGoogle(auth);
-  const router = useRouter();
-
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -45,29 +35,21 @@ export default function LoginPage() {
   });
 
   const handleSignInWithGoogle = async () => {
-    const res = await signWithGoogle();
-
-    console.log(res);
+    try {
+      const res = await signIn("google", { callbackUrl: "/dashboard" });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const onSubmit = async (data: FormData) => {
     try {
-      // const resGoogle = await signInWithEmailAndPassword(
-      //   data.email,
-      //   data.password
-      // );
-
-      const res = await signIn("credentials", {
-        redirect: false,
+      await signIn("credentials", {
         email: data.email,
         password: data.password,
+        callbackUrl: "/dashboard",
       });
-
-      if (res?.error) {
-        console.error("Sign-in error:", res);
-      } else {
-        router.push("/dashboard");
-      }
     } catch (err) {
       console.error("wrong username / password :", err);
     }
@@ -142,7 +124,7 @@ export default function LoginPage() {
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link
-                    href={"/register"}
+                    href={"/auth/register"}
                     className="underline underline-offset-4"
                   >
                     Sign up

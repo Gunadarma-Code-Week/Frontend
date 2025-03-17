@@ -10,15 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { UseFormInput } from "@/components/UseFormField";
-import { auth } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { registerService } from "@/services/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import {
-  useCreateUserWithEmailAndPassword,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -36,10 +32,6 @@ export const schema = z
 export type FormData = z.infer<typeof schema>;
 
 export default function RegisterPage() {
-  const [createUserWithEmailAndPassword] =
-    useCreateUserWithEmailAndPassword(auth);
-  const [signInWithGoogle] = useSignInWithGoogle(auth);
-
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -63,13 +55,17 @@ export default function RegisterPage() {
         password: data.password,
         role_id: 1,
       };
-      const resGoogle = await createUserWithEmailAndPassword(
-        data.email,
-        data.password
-      );
+
       const res = await registerService(newData);
-      console.log(newData);
-      console.log(resGoogle);
+
+      if (res) {
+        await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          callbackUrl: "/dashboard",
+        });
+      }
+
       console.log(res);
     } catch (err) {
       console.error(err);
@@ -78,7 +74,7 @@ export default function RegisterPage() {
 
   const handleSignInWithGoogle = async () => {
     try {
-      const res = await signInWithGoogle();
+      const res = await signIn("google", { callbackUrl: "/dashboard" });
       console.log(res);
     } catch (err) {
       console.error(err);
@@ -161,7 +157,7 @@ export default function RegisterPage() {
                 <div className="text-center text-sm">
                   Have an account?{" "}
                   <Link
-                    href={"/login"}
+                    href={"/auth/login"}
                     className="underline underline-offset-4"
                   >
                     Log In
