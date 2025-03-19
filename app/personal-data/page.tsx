@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 
 import { z } from "zod";
 
-export const schema = z.object({
+const schema = z.object({
   name: z.string(),
   email: z.string().email(),
   educationalLevel: z.string(),
@@ -24,7 +24,7 @@ export const schema = z.object({
   phone: z.string(),
 });
 
-export type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
 const educationalLevels = [
   { id: "1", name: "SMA" },
