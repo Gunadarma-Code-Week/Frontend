@@ -1,7 +1,7 @@
-import { NextRequestWithAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+// import { NextRequestWithAuth } from "next-auth/middleware";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware(req: NextRequestWithAuth) {
+export async function middleware(req: NextRequest) {
   // const session = await getToken({ req: request });
   const jwt = req.cookies.get("next-auth.session-token");
   const url = req.url;

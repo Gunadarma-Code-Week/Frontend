@@ -26,7 +26,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+// import { signOut } from "next-auth/react";
 
 export function NavUser({
   user,
@@ -40,7 +40,7 @@ export function NavUser({
   const { isMobile } = useSidebar();
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/auth/login" });
+    // await signOut({ callbackUrl: "/auth/login" });
   };
 
   return (

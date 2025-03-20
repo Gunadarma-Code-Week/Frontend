@@ -1,10 +1,10 @@
 "use client";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 
 export default function Page() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
-  console.log("session pea: ", session);
+  // console.log("session pea: ", session);
   return (
     <div>
       <div className="grid auto-rows-min gap-4 md:grid-cols-3">
