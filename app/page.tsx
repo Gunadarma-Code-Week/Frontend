@@ -357,7 +357,7 @@ export default function Home() {
           <section className=" w-full flex flex-col items-center justify-center text-center text-black gap-6">
             <div className='bg-white/60 p-12 rounded-md border-gray-300 border-2'>
               <h2 className="text-center text-3xl md:text-4xl font-bold text-black mb-10">
-                Got Questions? <span className="text-[#4285F4]">We've Got Answers!</span>
+                Got Questions? <span className="text-[#4285F4]">We&apos;ve Got Answers!</span>
               </h2>
 
               {/* Tabs */}
