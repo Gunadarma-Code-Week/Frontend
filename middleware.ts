@@ -2,8 +2,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  // const session = await getToken({ req: request });
-  const jwt = req.cookies.get("next-auth.session-token");
+  const jwt = req.cookies.get("gcw_api_token");
+  // const refreshToken = req.cookies.get("gcw_api_refresh_token");
   const url = req.url;
 
   const isAuthPath = req.nextUrl.pathname.startsWith("/auth");
@@ -25,5 +25,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|assets|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|txt|xml|json)).*)",
+  ],
 };

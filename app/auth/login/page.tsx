@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -12,36 +18,35 @@ const handleGoogleLoginSuccess = async (response: CredentialResponse) => {
     return;
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/validate-google-id-token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials : 'include',
-    body: JSON.stringify({ google_id_token: idToken }),
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/validate-google-id-token`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ google_id_token: idToken }),
+    }
+  );
 
   if (res.ok) {
     console.log("Google login success");
-    
-    const tes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/my`,{
+
+    const tes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/my`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials : 'include',
+      credentials: "include",
     });
     if (tes.ok) {
-      // redirect to dashboard
-
       const tesData = await tes.json();
       console.log("tes: ", tesData);
     }
-
   } else {
     console.error("Google login error");
   }
-
 };
 
 const handleGoogleLoginError = () => {
@@ -62,12 +67,18 @@ export default function LoginPage() {
             <Card>
               <CardHeader className="text-center">
                 <CardTitle className="text-xl">Welcome back</CardTitle>
-                <CardDescription>Login with your Google account</CardDescription>
+                <CardDescription>
+                  Login with your Google account
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6">
                   <div className="flex justify-center">
-                    <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError} useOneTap />
+                    <GoogleLogin
+                      onSuccess={handleGoogleLoginSuccess}
+                      onError={handleGoogleLoginError}
+                      useOneTap
+                    />
                   </div>
                 </div>
               </CardContent>
