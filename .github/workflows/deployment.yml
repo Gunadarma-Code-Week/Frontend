@@ -29,7 +29,4 @@ jobs:
                     # Debug PATH to verify it includes the required directories
                     echo $PATH
                     cd /home/ubuntu/gcw-app/gcw-fe
-                    git pull origin main
-                    bun install
-                    bun run build
-                    pm2 restart gcw-fe
+                    git pull origin main && bun install && bun run build && pm2 restart gcw-fe
