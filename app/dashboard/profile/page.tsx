@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { AtSign, GraduationCap, MoveRight, University } from "lucide-react";
@@ -25,13 +27,13 @@ const schema = z.object({
   IdCard: z.string(),
 });
 
-const SeminarPage = () => {
-  // const [isSeminar, setIsSeminar] = useState<boolean>();
+const ProfilePage = () => {
+  const [isEvent, setIsEvent] = useState<boolean>(false);
   const form = useForm({
     resolver: zodResolver(schema),
   });
 
-  const Seminar = () => {
+  const Event = () => {
     return (
       <>
         {Array.from({ length: 3 }).map((_, index) => {
@@ -122,20 +124,26 @@ const SeminarPage = () => {
             </div>
           </div>
           <div className="flex items-center gap-5">
-            <Button className="bg-[#F4F7FD] text-[#4084F3] rounded-full hover:bg-[#F4F7FD]/90 cursor-pointer hover:text-[#4084F3]/90">
+            <Button
+              className="bg-[#F4F7FD] text-[#4084F3] rounded-full hover:bg-[#F4F7FD]/90 cursor-pointer hover:text-[#4084F3]/90"
+              onClick={() => setIsEvent(true)}
+            >
               Event
             </Button>
-            <Button className="bg-transparent text-black rounded-full hover:bg-transparent cursor-pointer">
+            <Button
+              className="bg-transparent text-black rounded-full hover:bg-transparent cursor-pointer"
+              onClick={() => setIsEvent(false)}
+            >
               Edit Profile
             </Button>
           </div>
         </div>
         <div className="w-full h-full bg-[#F9F9F9] flex gap-5 px-20 items-center">
-          <Seminar />
+          {isEvent ? <Event /> : <EditProfile />}
         </div>
       </div>
     </div>
   );
 };
 
-export default SeminarPage;
+export default ProfilePage;
