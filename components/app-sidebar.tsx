@@ -57,11 +57,11 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Stage 1",
+          title: "Tahap 1 Proposal",
           url: "#",
         },
         {
-          title: "Stage 2",
+          title: "Tahap 2 Pitch Deck",
           url: "#",
         },
         {
@@ -76,11 +76,11 @@ const data = {
       icon: Bot,
       items: [
         {
-          title: "Stage 1",
+          title: "H1 Pemanasan",
           url: "#",
         },
         {
-          title: "Stage 2",
+          title: "H2 Penyisihan",
           url: "#",
         },
         {
@@ -91,22 +91,8 @@ const data = {
     },
     {
       title: "Seminar",
-      url: "#",
+      url: "/dashboard/seminar",
       icon: BookOpen,
-      items: [
-        {
-          title: "Stage 1",
-          url: "#",
-        },
-        {
-          title: "Stage 2",
-          url: "#",
-        },
-        {
-          title: "Final",
-          url: "#",
-        },
-      ],
     },
     {
       title: "Settings",

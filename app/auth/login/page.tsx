@@ -10,54 +10,57 @@ import {
 import { cn } from "@/lib/utils";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
-const handleGoogleLoginSuccess = async (response: CredentialResponse) => {
-  const idToken = response.credential;
-  if (!idToken) {
-    console.error("Missing Google ID token");
-    return;
-  }
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/validate-google-id-token`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ google_id_token: idToken }),
-    }
-  );
-
-  if (res.ok) {
-    console.log("Google login success");
-
-    const tes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/my`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    if (tes.ok) {
-      const tesData = await tes.json();
-      console.log("tes: ", tesData);
-    }
-  } else {
-    console.error("Google login error");
-  }
-};
-
-const handleGoogleLoginError = () => {
-  console.error("Google login error");
-};
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   if (!clientId) {
     throw new Error("Missing Google client ID");
   }
+
+  const handleGoogleLoginError = () => {
+    console.error("Google login error");
+  };
+
+  const handleGoogleLoginSuccess = async (response: CredentialResponse) => {
+    const idToken = response.credential;
+    if (!idToken) {
+      console.error("Missing Google ID token");
+      return;
+    }
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/validate-google-id-token`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ google_id_token: idToken }),
+      }
+    );
+
+    if (res.ok) {
+      console.log("Google login success");
+
+      const tes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/my`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (tes.ok) {
+        const tesData = await tes.json();
+        console.log("tes: ", tesData);
+        router.push("/dashboard");
+      }
+    } else {
+      console.error("Google login error");
+    }
+  };
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
