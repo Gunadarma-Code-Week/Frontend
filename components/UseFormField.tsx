@@ -56,6 +56,7 @@ export function UseFormInput<T extends FieldValues>({
                 type={type}
                 placeholder={placeholder}
                 className="form-input bg-gray-100 dark:text-white sm:bg-transparent"
+                {...field}
                 onChange={(e) => {
                   // Handle file input khusus
                   field.onChange(e.target.files);

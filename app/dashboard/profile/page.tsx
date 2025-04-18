@@ -1,22 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { AtSign, GraduationCap, MoveRight, University } from "lucide-react";
 import Link from "next/link";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  UseFormInput,
+  UseFormInputPhone,
+  UseFormSelect,
+} from "@/components/UseFormField";
+import { useBreadcrumbs } from "@/stores/breadcrumb";
 
 const schema = z.object({
   name: z.string(),
@@ -24,14 +22,24 @@ const schema = z.object({
   phoneNumber: z.string(),
   major: z.string(),
   university: z.string(),
-  IdCard: z.string(),
+  idCard: z.string(),
 });
 
 const ProfilePage = () => {
-  const [isEvent, setIsEvent] = useState<boolean>(false);
+  const [isEvent, setIsEvent] = useState<boolean>(true);
   const form = useForm({
     resolver: zodResolver(schema),
   });
+  const { setBreadcrumbs } = useBreadcrumbs();
+
+  useEffect(() => {
+    setBreadcrumbs([
+      {
+        name: "Profile",
+        href: "/dashboard/profile",
+      },
+    ]);
+  }, [setBreadcrumbs]);
 
   const Event = () => {
     return (
@@ -72,20 +80,55 @@ const ProfilePage = () => {
   };
 
   const EditProfile = () => {
+    const datas = [
+      {
+        id: "1",
+        name: "S1",
+      },
+      {
+        id: "2",
+        name: "S2",
+      },
+      {
+        id: "3",
+        name: "S3",
+      },
+    ];
     return (
       <Form {...form}>
-        <FormField
-          control={form.control}
-          name="name"
-          render={() => (
-            <FormItem>
-              <FormLabel />
-              <FormControl>{/* Your form field */}</FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid gap-5 w-[60%]">
+          <UseFormInput
+            form={form}
+            name="name"
+            label="Name"
+            type="text"
+            placeholder="Jhon Doe"
+          />
+          <UseFormInput
+            form={form}
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="jhon.doe@gmail.com"
+          />
+          <UseFormInputPhone
+            form={form}
+            name="phoneNumber"
+            label="Phone Number"
+            placeholder="8912345678"
+          />
+          <UseFormSelect
+            form={form}
+            name="major"
+            label="Major"
+            placeholder="S1"
+            datas={datas}
+          />
+          <UseFormInput form={form} name="idCard" label="Id Card" type="file" />
+          <div className="w-full flex justify-end">
+            <Button className="bg-blue-500 rounded-lg">Update Profile</Button>
+          </div>
+        </div>
       </Form>
     );
   };
@@ -93,7 +136,7 @@ const ProfilePage = () => {
   return (
     <div className="grid">
       <div className="w-full h-[609.32px] grid">
-        <div className="w-full h-full grid shadow-md z-10 px-20">
+        <div className="w-full h-56 grid shadow-md z-10 px-20">
           <div className="flex items-center gap-5">
             <div>
               <Image
@@ -125,20 +168,24 @@ const ProfilePage = () => {
           </div>
           <div className="flex items-center gap-5">
             <Button
-              className="bg-[#F4F7FD] text-[#4084F3] rounded-full hover:bg-[#F4F7FD]/90 cursor-pointer hover:text-[#4084F3]/90"
+              className={`${
+                isEvent ? "active-button-profile" : "inactive-button-profile"
+              }`}
               onClick={() => setIsEvent(true)}
             >
               Event
             </Button>
             <Button
-              className="bg-transparent text-black rounded-full hover:bg-transparent cursor-pointer"
+              className={`${
+                !isEvent ? "active-button-profile" : "inactive-button-profile"
+              }`}
               onClick={() => setIsEvent(false)}
             >
               Edit Profile
             </Button>
           </div>
         </div>
-        <div className="w-full h-full bg-[#F9F9F9] flex gap-5 px-20 items-center">
+        <div className="w-full h-full bg-[#F9F9F9] flex gap-5 px-20 items-center py-10">
           {isEvent ? <Event /> : <EditProfile />}
         </div>
       </div>

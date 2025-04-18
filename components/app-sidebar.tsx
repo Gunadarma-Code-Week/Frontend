@@ -91,7 +91,7 @@ const data = {
     },
     {
       title: "Seminar",
-      url: "/dashboard/seminar",
+      url: "/dashboard/profile",
       icon: BookOpen,
     },
     {

@@ -12,7 +12,7 @@ const ButtonBack = () => {
       variant={"nothing"}
       className={`max-w-13 ${
         pathname === "/dashboard" && "hidden"
-      } gap-0 !p-0 justify-between hover:text-black/60 duration-150 cursor-pointer`}
+      } gap-0 !p-0 justify-between text-blue-500 hover:text-blue-500/90 duration-150 cursor-pointer`}
       onClick={() => router.back()}
     >
       <ArrowLeft />
