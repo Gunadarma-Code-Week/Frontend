@@ -10,7 +10,6 @@ import news1 from "@/public/assets/news.png";
 import news2 from "@/public/assets/news.png";
 import news3 from "@/public/assets/news.png";
 import ctaGraphic from "@/public/assets/brain.png";
-import nav from "@/public/assets/logo-nav-cut.png";
 import maskot from "@/public/assets/Maskot-2.png";
 import maskotHi from "@/public/assets/Maskot.png";
 import hackMaskot from "@/public/assets/hackthon-maskot.png";
@@ -99,7 +98,7 @@ export default function Home() {
       >
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
           <Link href="/">
-            <Image src={nav} alt="Logo" width={100} height={56} />
+            <Image src="/assets/logo-nav-cut.png" alt="Logo" width={100} height={56} />
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <Link href={"/auth/login"} className="hidden md:block">
