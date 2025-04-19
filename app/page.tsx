@@ -98,7 +98,7 @@ export default function Home() {
       >
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
           <Link href="/">
-            <Image src="/assets/logo-nav-cut.png" alt="Logo" width={100} height={56} />
+            <img src="/assets/logo.svg" alt="Gunadarma Code Week Logo" className="w-[100px] h-[45px]" />
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <Link href={"/auth/login"} className="hidden md:block">
