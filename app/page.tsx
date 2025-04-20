@@ -176,9 +176,9 @@ export default function Home() {
           >
             {/* Text kiri */}
             <div className="flex flex-col justify-center h-full lg:w-[626px] px-6 lg:px-0">
-              <h4 className="text-3xl text-white font-medium drop-shadow-md">
+              {/* <h4 className="text-3xl text-white font-medium drop-shadow-md">
                 Welcome
-              </h4>
+              </h4> */}
               <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold lg:leading-[90px] text-white drop-shadow-md">
                 Gunadarma <br />
                 Code Week
