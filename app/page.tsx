@@ -17,24 +17,19 @@ import news2 from "@/public/assets/news.png";
 import news3 from "@/public/assets/news.png";
 import ctaGraphic from "@/public/assets/brain.png";
 import maskot from "@/public/assets/Maskot-2.png";
-import maskotHi from "@/public/assets/Maskot.png";
+// import maskotHi from "@/public/assets/Maskot.png"; // Removed this import
 import hackMaskot from "@/public/assets/hackthon-maskot.png";
 import seminarMaskot from "@/public/assets/seminar-maskot.png";
 import cpMaskot from "@/public/assets/cp-maskot.png";
 import nav from "@/public/assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import Countdown from "@/components/Countdown"; // Make sure the import path is correct
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState("general");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  if (analytics) {
-    logEvent(analytics, "page_view", {
-      page_path: "/",
-    });
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -212,45 +207,12 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="mt-32 w-full flex flex-col items-center justify-center text-center text-black gap-6 min-h-screen">
-            <h2 className="text-2xl md:text-4xl font-semibold mb-5">
-              Let the countdown begin
-            </h2>
-            <div className="flex flex-col md:flex-row gap-4 w-full justify-center items-center relative">
-              {/* Maskot Hi di sebelah kiri */}
-              <div className="absolute hidden lg:block -left-15 md:-left-14 -top-10">
-                <Image
-                  src={maskotHi}
-                  alt="Maskot Hi"
-                  width={280}
-                  height={280}
-                  className="object-contain"
-                />
-              </div>
-
-              {/* Box countdown */}
-              {[
-                { label: "Days", value: 49 },
-                { label: "Hours", value: 9 },
-                { label: "Minutes", value: 55 },
-                { label: "Seconds", value: 57 },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white w-[230px] h-[230px] backdrop-blur-md text-[#1A73E8] px-6 py-4 rounded-xl shadow-md flex flex-col items-center justify-center"
-                >
-                  <h1 className="text-7xl md:text-8xl font-semibold">
-                    {item.value}
-                  </h1>
-                  <p className="text-base mt-2 font-medium">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* Use the Countdown component here */}
+          <Countdown targetDateString="April 28, 2025 00:00:00" />
         </main>
       </div>
       <main className="relative z-10 max-w-screen-xl mx-auto px-4 mt-32">
-        <section className="w-full flex flex-col gap-16 items-center justify-center text-black min-h-screen">
+        <section className="w-full flex flex-col items-center justify-center text-center text-black gap-6">
           {/* Header */}
           <div className="flex flex-col md:flex-row w-full justify-between items-start md:items-center gap-6">
             <h2 className="text-2xl md:text-4xl font-bold md:w-4/12">
