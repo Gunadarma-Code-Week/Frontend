@@ -40,6 +40,17 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Track page view when component mounts
+    if (analytics) {
+      logEvent(analytics, "page_view", {
+        page_title: "Home",
+        page_location: window.location.href,
+        page_path: "/"
+      });
+    }
+  }, []); // Empty dependency array means this runs once on mount
+
   const generalQuestions = [
     {
       question: "When is Google Week Code 2025?",
