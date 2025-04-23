@@ -51,11 +51,15 @@ const data = {
   ],
   navMain: [
     {
-      title: "Hackaton",
+      title: "Hackathon",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
+        {
+          title: "Intro",
+          url: "/dashboard/hackathon/intro",
+        },
         {
           title: "Tahap 1 Proposal",
           url: "#",
