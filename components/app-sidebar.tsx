@@ -95,8 +95,8 @@ const data = {
     },
     {
       title: "Seminar",
-      url: "/dashboard/profile",
-      icon: BookOpen,
+      url: "/dashboard/seminar/intro",
+      icon: BookOpen
     },
     {
       title: "Settings",
