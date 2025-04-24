@@ -54,7 +54,6 @@ const data = {
       title: "Hackathon",
       url: "#",
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: "Intro",
@@ -80,6 +79,10 @@ const data = {
       icon: Bot,
       items: [
         {
+          title: "Intro",
+          url: "/dashboard/cp/intro",
+        },
+        {
           title: "H1 Pemanasan",
           url: "#",
         },
@@ -95,8 +98,8 @@ const data = {
     },
     {
       title: "Seminar",
-      url: "/dashboard/profile",
-      icon: BookOpen,
+      url: "/dashboard/seminar/intro",
+      icon: BookOpen
     },
     {
       title: "Settings",

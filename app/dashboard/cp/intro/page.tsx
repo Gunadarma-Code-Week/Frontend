@@ -85,7 +85,7 @@ export default function HackatonPage() {
         <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-4 md:gap-8 mb-8 md:mb-12">
           <div className="space-y-3 md:space-y-4 max-w-xl text-center md:text-left">
             <h1 className="text-2xl md:text-4xl md:leading-12 font-bold text-[#202124]">
-              GCW Hackathon 2025
+              Competitive Programming
             </h1>
             <div className="flex items-center text-sm text-[#5f6368] gap-1 justify-center md:justify-start">
               <Calendar className="h-4 w-4 text-[#4084f3]" />
@@ -117,8 +117,8 @@ export default function HackatonPage() {
 
           {/* Content container with white background */}
           <div className="relative flex flex-col items-center bg-white rounded-lg p-4 md:p-6">
-            <h2 className="text-xl md:text-2xl font-bold text-[#202124] mb-3 md:mb-4">
-              What is Hackathon?
+            <h2 className="text-xl md:text-2xl text-center font-bold text-[#202124] mb-3 md:mb-4">
+              What is Competitive Programming?
             </h2>
             <p className="text-xs md:text-sm text-[#5f6368] leading-relaxed">
               Gunakanlah Code Week sebagai rangkaian kompetisi yang
@@ -178,7 +178,7 @@ export default function HackatonPage() {
         {/* Pick Your Role */}
         <div className="mb-8 md:mb-12">
           <h2 className="text-xl md:text-2xl font-bold text-[#202124] mb-6 md:mb-8 text-center">
-            Hackathon Roles
+            Competitive Programming Roles
           </h2>
 
           {roles.map((role, index) => (
@@ -210,7 +210,7 @@ export default function HackatonPage() {
         </div>
 
         <BannerCTA
-          title="Join the GCW Hackathon 2025"
+          title="Join the Competitive Programming"
           description="Lorem ipsum dolor sit amet consectetur. In lectus odio facilisis venenatis eros. Justo sagittis venenatis sit condimentum. Sit lacus adipiscing ut felis cursus purus pellentesque morbi. Imperdiet mi."
           buttonText="Register now"
           imageSrc="/assets/brain.png"
