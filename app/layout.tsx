@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Gunadarma Code Week",
-  description: "GCW menghadirkan seminar, hackathon, dan kompetisi pemrograman. Daftar sekarang untuk mengasah skill & berprestasi!",
+  description:
+    "GCW menghadirkan seminar, hackathon, dan kompetisi pemrograman. Daftar sekarang untuk mengasah skill & berprestasi!",
 };
 
 export default function RootLayout({

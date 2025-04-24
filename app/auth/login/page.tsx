@@ -7,10 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
+import { getProfile, validateGoogleToken } from "@/services/auth";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,6 +21,14 @@ export default function LoginPage() {
   if (!clientId) {
     throw new Error("Missing Google client ID");
   }
+  const { login } = useAuth();
+
+  useEffect(() => {
+    const token = localStorage.getItem("gcw_token");
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleGoogleLoginError = () => {
     console.error("Google login error");
@@ -30,31 +41,16 @@ export default function LoginPage() {
       return;
     }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/validate-google-id-token`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ google_id_token: idToken }),
-      }
-    );
+    const resGToken = await validateGoogleToken(idToken);
 
-    if (res.ok) {
-      console.log("Google login success");
+    if (resGToken) {
+      login(resGToken.Data.access_token);
 
-      const tes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/my`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      if (tes.ok) {
-        const tesData = await tes.json();
-        console.log("tes: ", tesData);
+      console.log("✅ - Google login success");
+
+      const resProfile = await getProfile();
+      if (resProfile) {
+        console.log("res profile: ", resProfile);
         router.push("/dashboard");
       }
     } else {
